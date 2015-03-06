@@ -1,0 +1,8 @@
+#!/bin/bash
+
+workdir=$(mktemp -d)
+
+tar -tf $1 --strip-components=1 --show-transformed-names | sort > $workdir/tarball-1
+tar -tf $2 --strip-components=1 --show-transformed-names | sort > $workdir/tarball-2
+
+diff $workdir/tarball-1 $workdir/tarball-2

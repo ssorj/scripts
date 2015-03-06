@@ -1,0 +1,19 @@
+#!/bin/bash
+
+URL=$1 # "http://git-wip-us.apache.org/repos/asf/qpid-proton.git" .
+DIR=$2
+
+DIR=$(readlink -f $DIR)
+
+tmpdir=$(mktemp -d)
+
+(
+    cd $tmpdir
+
+    git clone --no-checkout $URL .
+    git rev-parse HEAD > ${DIR}.revision
+    mkdir $DIR
+    git archive master | tar -xf - -C $DIR
+)
+
+rm -rf $tmpdir
