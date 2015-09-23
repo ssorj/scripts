@@ -25,4 +25,4 @@ if [[ $# != 3 ]]; then
     exit 1
 fi
 
-sed -i "s/$2/$3/g" $(find . -name $1)
+find . -name "$1" -exec sed -i "s/$2/$3/g" "{}" "+"
