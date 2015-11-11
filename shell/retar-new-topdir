@@ -1,0 +1,28 @@
+#!/bin/bash -e
+
+which mktemp mv tar rm > /dev/null
+
+if [ $# != 2 ]; then
+    echo "Usage: retar-new-topdir EXISTING-TARBALL NEW-TOPDIR"
+    echo "Example: retar-new-topdir cumin-0.1.tar.gz cumin-0.1.2145"
+    exit 1
+fi
+
+otarball=$1
+otopdir=$(tar -tzf "$otarball" | head -n 1)
+ntopdir=$2
+ntarball="${ntopdir}.tar.gz"
+tmpdir=$(mktemp -d)
+
+trap "rm -rf ${tmpdir}" EXIT
+
+if [ -e "$ntarball" ]; then
+    echo "${ntarball} already exists"
+    exit 1
+fi
+
+tar -C "$tmpdir" -xzf "$otarball"
+mv "${tmpdir}/${otopdir}" "${tmpdir}/${ntopdir}"
+tar -C "$tmpdir" -czf "$ntarball" "$ntopdir"
+
+echo "Created ${ntarball}"
