@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eu
+
+exec svn st "$@" | awk '/^[\?]/ {print $2}'
