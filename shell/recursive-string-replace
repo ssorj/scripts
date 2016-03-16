@@ -20,7 +20,7 @@
 
 set -eu
 
-if [[ $# != 3 ]]; then
+if (( $# != 3 )); then
     echo "Usage: recursive-string-replace GLOB MATCH-EXPR REPLACEMENT"
     exit 1
 fi
