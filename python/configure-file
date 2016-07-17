@@ -18,14 +18,30 @@
 # under the License.
 #
 
+import os
+import shutil
 import sys
 
-input_file, output_file, name, value = sys.argv[1:]
+try:
+     input_file, output_file, name, value = sys.argv[1:]
+except:
+     exit("Usage: configure-file INPUT-FILE OUTPUT-FILE NAME VALUE")
 
+assert os.path.isfile(input_file)
+     
 with open(input_file, "r") as f:
      content = f.read()
 
 content = content.replace("@{}@".format(name), value)
 
+parent_dir = os.path.dirname(output_file)
+
+if not os.path.exists(parent_dir):
+     os.makedirs(parent_dir)
+
+assert os.path.isdir(parent_dir)
+
 with open(output_file, "w") as f:
      f.write(content)
+
+shutil.copymode(input_file, output_file)
