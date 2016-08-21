@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
@@ -20,11 +20,15 @@
 
 from __future__ import print_function
 
-import distutils.sysconfig as config
+import distutils.sysconfig as sysconfig
 import sys
 
-prefix = sys.argv[1]
-plat_path = config.get_python_lib(plat_specific=True, prefix=prefix)
-path = config.get_python_lib(prefix=prefix)
+try:
+    prefix = sys.argv[1]
+except IndexError:
+    prefix = sysconfig.PREFIX
+
+plat_path = sysconfig.get_python_lib(plat_specific=True, prefix=prefix)
+path = sysconfig.get_python_lib(prefix=prefix)
 
 print("{}:{}".format(plat_path, path))
