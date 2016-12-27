@@ -20,9 +20,11 @@
 
 from __future__ import print_function
 
-from plano import *
+import codecs
+import os
+import sys
 
-root_dir = ARGS[1]
+root_dir = sys.argv[1]
 
 fingerprint_1a = "Licensed to the Apache Software Foundation"
 fingerprint_1b = "Licensed under the Apache License"
@@ -31,26 +33,27 @@ fingerprint_2 = "http://www.apache.org/licenses/LICENSE-2.0"
 files_not_decoded = set()
 files_without_licenses = set()
 
-for path in find(root_dir):
-    print("Checking {}".format(path))
+for root, dirs, files in os.walk(root_dir):
+    for file_ in files:
+        path = os.path.join(root, file_)
 
-    if ".svn" in path.split("/"):
-        continue
+        print("Checking {}".format(path))
 
-    if not is_file(path):
-        continue
+        if ".svn" in path.split("/"):
+            continue
 
-    try:
-        content = read(path)
-    except UnicodeDecodeError:
-        files_not_decoded.add(path)
-        continue
+        try:
+            with codecs.open(path, encoding="utf-8", mode="r") as f:
+                content = f.read()
+        except UnicodeDecodeError:
+            files_not_decoded.add(path)
+            continue
 
-    if (fingerprint_1a in content or fingerprint_1b in content) \
-            and fingerprint_2 in content:
-        continue
+        if (fingerprint_1a in content or fingerprint_1b in content) \
+                and fingerprint_2 in content:
+            continue
 
-    files_without_licenses.add(path)
+        files_without_licenses.add(path)
 
 for path in sorted(files_not_decoded):
     print("Couldn't decode {}".format(path))
