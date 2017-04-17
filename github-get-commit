@@ -18,18 +18,17 @@
 # under the License.
 #
 
-set -eux
+set -eu
 
-which wget
+which git > /dev/null
 
-if (( $# != 4 )); then
-    echo "Usage: github-get-tarball USER-NAME REPO-NAME REVISION OUTPUT-FILE"
+if (( $# != 3 )); then
+    echo "Usage: github-get-commit PARTY REPO REF"
     exit 1
 fi
 
-USER=$1
+PARTY=$1
 REPO=$2
-REVISION=$3
-OUTPUT=$4
+REF=$3
 
-wget https://github.com/$USER/$REPO/tarball/$REVISION -O $OUTPUT
+git ls-remote https://github.com/$PARTY/$REPO.git $REF | awk '{print $1}'

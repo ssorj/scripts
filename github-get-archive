@@ -20,14 +20,16 @@
 
 set -eu
 
-which git > /dev/null
+which wget > /dev/null
 
-if (( $# != 2 )); then
-    echo "Usage: github-get-head-revision USER-NAME REPO-NAME"
+if (( $# != 4 )); then
+    echo "Usage: github-get-archive PARTY REPO COMMIT OUTPUT"
     exit 1
 fi
 
-USER=$1
+PARTY=$1
 REPO=$2
+COMMIT=$3
+OUTPUT=$4
 
-git ls-remote https://github.com/${USER}/${REPO}.git HEAD | awk '{print $1}'
+wget https://github.com/$PARTY/$REPO/archive/$COMMIT.tar.gz -O $OUTPUT --quiet
