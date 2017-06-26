@@ -18,11 +18,11 @@
 # under the License.
 #
 
-set -eu
+set -eux
 
 if (( $# != 3 )); then
     echo "Usage: recursive-string-replace GLOB MATCH-EXPR REPLACEMENT"
     exit 1
 fi
 
-find . -name "$1" -exec sed -i "s/$2/$3/g" "{}" "+"
+find . -name "$1" -exec sed -i "s|$2|$3|g" "{}" "+"
