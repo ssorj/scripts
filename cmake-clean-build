@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -eu
+
+if [[ ${PWD##*/} != bld ]]; then
+    echo "Not in the expected build directory" > /dev/stderr
+    exit 1
+fi
+
+if [[ -f CMakeCache.txt ]]; then
+    rm -rf *
+fi
+
+cmake .. -DCMAKE_INSTALL_PREFIX=~/.local
+make -j8
