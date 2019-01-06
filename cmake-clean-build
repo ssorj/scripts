@@ -11,5 +11,6 @@ if [[ -f CMakeCache.txt ]]; then
     rm -rf *
 fi
 
-cmake .. -DCMAKE_INSTALL_PREFIX=~/.local
+cmake .. -DCMAKE_MODULE_PATH=~/.local/lib64/cmake -DCMAKE_INSTALL_PREFIX=~/.local #-DPYTHON_EXECUTABLE=/usr/bin/python3
+
 make -j8

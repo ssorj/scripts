@@ -32,4 +32,4 @@ REPO=$2
 COMMIT=$3
 OUTPUT=$4
 
-wget https://github.com/$PARTY/$REPO/archive/$COMMIT.tar.gz -O $OUTPUT --quiet
+wget https://api.github.com/repos/$PARTY/$REPO/tarball/$COMMIT -O $OUTPUT --quiet

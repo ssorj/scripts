@@ -1,0 +1,7 @@
+#!/bin/bash
+
+trap "sudo systemctl stop artemis" EXIT
+
+sudo systemctl start artemis
+journalctl -f -u artemis
+exit 0

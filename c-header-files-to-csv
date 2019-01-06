@@ -1,0 +1,25 @@
+#!/usr/bin/python3
+
+from plano import *
+
+import re
+
+if len(ARGS) < 2:
+    exit("Usage: c-header-files-to-csv HEADER-FILE...")
+
+def process_line(line):
+    elems = re.split()
+    out = list()
+
+    for i, elem in enumerate(elems):
+        if i > 
+        
+        out.append(convert_elem(elem))
+
+    return " ".join(out) + "\n"
+
+for file_ in ARGS[1:]:
+    with open(file_) as r:
+        for line in r:
+            record = [file_]
+            record += process_line(line)
