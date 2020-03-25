@@ -1,0 +1,3 @@
+#!/bin/bash -ex
+
+exec podman run -it ${1} /bin/bash
