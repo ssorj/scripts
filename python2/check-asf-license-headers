@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 #
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
@@ -7,9 +7,9 @@
 # to you under the Apache License, Version 2.0 (the
 # "License"); you may not use this file except in compliance
 # with the License.  You may obtain a copy of the License at
-#
+# 
 #   http://www.apache.org/licenses/LICENSE-2.0
-#
+# 
 # Unless required by applicable law or agreed to in writing,
 # software distributed under the License is distributed on an
 # "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -17,6 +17,8 @@
 # specific language governing permissions and limitations
 # under the License.
 #
+
+from __future__ import print_function
 
 import codecs
 import os
@@ -32,12 +34,12 @@ files_not_decoded = set()
 files_without_licenses = set()
 
 for root, dirs, files in os.walk(root_dir):
-    for name in files:
-        path = os.path.join(root, name)
+    for file_ in files:
+        path = os.path.join(root, file_)
 
-        print(f"Checking {path}")
+        print("Checking {}".format(path))
 
-        if ".git" in path.split("/") or ".svn" in path.split("/"):
+        if ".svn" in path.split("/"):
             continue
 
         try:
@@ -47,13 +49,14 @@ for root, dirs, files in os.walk(root_dir):
             files_not_decoded.add(path)
             continue
 
-        if (fingerprint_1a in content or fingerprint_1b in content) and fingerprint_2 in content:
+        if (fingerprint_1a in content or fingerprint_1b in content) \
+                and fingerprint_2 in content:
             continue
 
         files_without_licenses.add(path)
 
 for path in sorted(files_not_decoded):
-    print(f"Couldn't decode {path}")
+    print("Couldn't decode {}".format(path))
 
 for path in sorted(files_without_licenses):
-    print(f"Consider {path}")
+    print("Consider {}".format(path))

@@ -7,9 +7,9 @@
 # to you under the Apache License, Version 2.0 (the
 # "License"); you may not use this file except in compliance
 # with the License.  You may obtain a copy of the License at
-# 
+#
 #   http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing,
 # software distributed under the License is distributed on an
 # "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,20 +18,8 @@
 # under the License.
 #
 
-import os
-import shutil
-import sys
+from __future__ import print_function
 
-try:
-     input_file, output_file = sys.argv[1:3]
-except:
-     exit("Usage: install-executable INPUT-FILE OUTPUT-FILE")
-     
-parent_dir = os.path.dirname(output_file)
+import random
 
-if not os.path.exists(parent_dir):
-     os.makedirs(parent_dir)
-
-assert os.path.isdir(parent_dir)
-     
-shutil.copy(input_file, output_file)
+print(random.randint(49152, 65535))
