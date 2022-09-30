@@ -11,6 +11,6 @@ if [[ -f CMakeCache.txt ]]; then
     rm -rf *
 fi
 
-cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MODULE_PATH=~/.local/lib64/cmake -DCMAKE_INSTALL_PREFIX=~/.local #-DPYTHON_EXECUTABLE=/usr/bin/python3
+cmake .. -DCMAKE_INSTALL_PREFIX=~/.local
 
-make -j8
+make -j $(nproc)
