@@ -11,6 +11,6 @@ if [[ -f CMakeCache.txt ]]; then
     rm -rf *
 fi
 
-cmake .. -DCMAKE_INSTALL_PREFIX=~/.local
+cmake .. -DCMAKE_INSTALL_PREFIX=~/.local -DBUILD_TLS=ON
 
-make -j $(nproc)
+CFLAGS=-fno-omit-frame-pointer make -j $(nproc)
